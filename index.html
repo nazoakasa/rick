@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リダイレクト中...</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            font-size: 2em;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            margin: 20px auto;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+        #countdown {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>リダイレクト中...</h1>
+        <div class="spinner"></div>
+        <div id="countdown">3</div>
+        <p>まもなく指定のページに移動します</p>
+        <p><a href="https://www.google.com" id="manual-link">すぐに移動する</a></p>
+    </div>
+
+    <script>
+        // リダイレクト先のURL（ここを変更してください）
+        const redirectUrl = 'https://www.google.com';
+        
+        // カウントダウンの秒数
+        let seconds = 3;
+        const countdownEl = document.getElementById('countdown');
+        const manualLink = document.getElementById('manual-link');
+        
+        // リンクのURLも更新
+        manualLink.href = redirectUrl;
+        
+        // カウントダウン
+        const countdown = setInterval(() => {
+            seconds--;
+            countdownEl.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                // リダイレクト実行
+                window.location.href = redirectUrl;
+            }
+        }, 1000);
+        
+        // 別の方法: 即座にリダイレクトしたい場合は、以下のコメントを外してください
+        // window.location.href = redirectUrl;
+        
+        // または、metaタグでのリダイレクトも可能です（HTMLのheadに追加）
+        // <meta http-equiv="refresh" content="3;url=https://www.google.com">
+    </script>
+</body>
+</html>
